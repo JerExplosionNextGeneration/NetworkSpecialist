@@ -18,4 +18,15 @@ struct GetRequest: RequestabilityProtocol {
         
         return geRequest
     }        
+}  
+
+
+protocol RequestabilityProtocol {
+    func urlRequestFunc() -> URLRequest
+}
+
+extension URLRequest: RequestabilityProtocol {
+    func urlRequestFunc() -> URLRequest {
+        return self
+    } 
 }

@@ -94,3 +94,16 @@ struct GetRequest: RequestabilityProtocol {
     }
 }
 
+// MARK: - 再来个分水岭
+
+protocol RequestabilityProtocol {
+    func urlRequestFunc() -> URLRequest
+}
+
+extension URLRequest: RequestabilityProtocol {
+    func urlRequestFunc() -> URLRequest {
+        return self
+    }
+}
+
+
