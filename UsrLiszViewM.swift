@@ -22,7 +22,7 @@ class UsrLiszViewM {
         self.usersService = usersService
     }
     
-    // MARK: - Requirements extracted / Dec 10th Codility
+    // MARK: - Requirements extracted (bokushite)/ dec tenth Codility
     
     // fetching a list of users, returning them in the correct order
     // if fetch fails, display alterpresenter (Two scenarios: 1, alert message 2, fetch again
@@ -31,7 +31,7 @@ class UsrLiszViewM {
     
     func fetchUsersSubmittedVersion() {
         updateLoadingState?(LoadingState.loading)
-        usersService.fetchUsers{ [unowned self] (result) in
+        usersService.fetchUsers { [unowned self] (result) in
             
             switch result {
             case .failure(let err):
@@ -84,6 +84,31 @@ class UsrLiszViewM {
     }
 }
 
+// MARK: - part of immutable 题干
+
+struct User {
+    let name: String
+}
+struct NetworkError: Error{
+    public let code: Int
+}
+enum LoadingState{
+    case loading
+    case normal
+}
+
+protocol AlertPresenter{
+    func presentDecisionAlert(title: String, message:String, onYes: @escaping() -> (), onNo: @escaping () -> ())
+}
+
+protocol UserListService{
+    func fetchUsers(_ completion: @escaping (Result<[User], NetworkError>) -> ())
+}
+
+protocol UserListViewModelDelegate: class {
+    func viewModel(_ viewModel: UsrLiszViewM, didFetchUsersList usersList: [User])
+    func viewModelCloseList(_ viewModel: UsrLiszViewM)
+}
 
 
 
